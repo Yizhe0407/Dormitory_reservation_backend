@@ -15,8 +15,9 @@ router.post('/add', async (req, res) => {
     const existingReserve = await Reserve.findOne({ building, floor, room_number });
 
     if (existingReserve) {
-      // 如果存在，更新 status 為 'unchecked'
-      existingReserve.status = 'unchecked';
+      // 如果存在，更新 status 跟 inspector
+      existingReserve.status = '等待檢查';
+      existingReserve.inspector = "尚未檢查";
       await existingReserve.save();
       return res.status(200).json({ message: '資料已存在，status 更新為 unchecked', reserve: existingReserve });
     } else {
