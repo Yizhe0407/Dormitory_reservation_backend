@@ -57,7 +57,7 @@ router.get('/unchecked', async (req, res) => {
   }
 });
 
-router.get('/qualified', async (req, res) => {
+router.get('/pass', async (req, res) => {
   try {
     const reserves = await Reserve.find({ status: '檢查合格' });
     return res.status(200).json({ reserves });
@@ -67,7 +67,7 @@ router.get('/qualified', async (req, res) => {
   }
 });
 
-router.get('/unqualified', async (req, res) => {
+router.get('/failed', async (req, res) => {
   try {
     const reserves = await Reserve.find({ status: '檢查不合格' });
     return res.status(200).json({ reserves });
