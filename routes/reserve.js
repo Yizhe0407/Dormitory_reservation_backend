@@ -47,6 +47,36 @@ router.get('/all', async (req, res) => {
   }
 });
 
+router.get('/unchecked', async (req, res) => {
+  try {
+    const reserves = await Reserve.find({ status: '等待檢查' });
+    return res.status(200).json({ reserves });
+  } catch (error) {
+    console.error('Server error:', error);
+    return res.status(500).json({ message: '伺服器錯誤', error });
+  }
+});
+
+router.get('/qualified', async (req, res) => {
+  try {
+    const reserves = await Reserve.find({ status: '檢查合格' });
+    return res.status(200).json({ reserves });
+  } catch (error) {
+    console.error('Server error:', error);
+    return res.status(500).json({ message: '伺服器錯誤', error });
+  }
+});
+
+router.get('/unqualified', async (req, res) => {
+  try {
+    const reserves = await Reserve.find({ status: '檢查不合格' });
+    return res.status(200).json({ reserves });
+  } catch (error) {
+    console.error('Server error:', error);
+    return res.status(500).json({ message: '伺服器錯誤', error });
+  }
+});
+
 router.post('/qualified', async (req, res) => {
   try {
     const { building, room_number, username } = req.body;
